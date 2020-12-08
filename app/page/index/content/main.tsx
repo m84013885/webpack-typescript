@@ -1,5 +1,5 @@
 import style from "./main.css"
-import _fetch from '../../../utils/fetch'
+import fetch from '../../../utils/fetch'
 import { storeContext } from '../../../utils/stroe'
 
 import { Mask } from '../../../components'

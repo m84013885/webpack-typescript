@@ -2,11 +2,11 @@
 
 const createStore = () => {
     // 控制弹窗
-    const [maskNumber, setMaskNumber] = useState(null)
+    const [mask, setMask] = useState(null)
 
     return {
-        maskNumber,
-        setMaskNumber,
+        mask,
+        setMask,
     }
 }
 

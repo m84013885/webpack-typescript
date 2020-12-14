@@ -8,21 +8,21 @@ interface prop {
 const Mask = (prop: prop) => {
     const { children } = prop
     const store = useContext(storeContext)
-    const { maskNumber, setMaskNumber } = store
+    const { mask, setMask } = store
     const [dom, setDom] = useState(false)
     const [show, setShow] = useState(false)
     useEffect(() => {
-        if (typeof (maskNumber) === 'number') {
+        if (typeof (mask) === 'number') {
             setDom(true)
             setShow(true)
         } else {
             setShow(false)
         }
-    }, [maskNumber])
+    }, [mask])
     const _renderChildren = useCallback(() => {
         const arr: any = children
         if (arr.length) {
-            return arr[maskNumber]
+            return arr[mask]
         } else {
             return children
         }
@@ -30,7 +30,7 @@ const Mask = (prop: prop) => {
     const closeAnima = (e: any) => {
         if (e.animationName.indexOf('hide') !== -1) {
             setDom(false)
-            setMaskNumber(null)
+            setMask(null)
         }
     }
     return (

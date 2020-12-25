@@ -9,5 +9,7 @@
       "es2015.promise"
     ],
     "jsx": "react"
-  }
+  },
+  "include": ["app"],
+  "exclude": ["**/node_modules", "**/.*"]
 }

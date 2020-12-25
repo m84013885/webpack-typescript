@@ -1,9 +1,9 @@
 module.exports = {
   roots: ['<rootDir>/app/test/'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': 'ts-jest'
   },
-  testMatch: ['**/*.test.ts'],
+  testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',

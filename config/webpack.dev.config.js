@@ -46,7 +46,7 @@ const config = merge(commonConfig, {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({ __DEV__: 'true' })
+    new webpack.DefinePlugin({ __DEV__: 'true' }),
   ],
   devtool: 'inline-source-map',
   module: {

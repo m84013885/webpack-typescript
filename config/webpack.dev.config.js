@@ -11,7 +11,7 @@ const port = 8087
 const host = ip.address()
 const appDir = path.resolve(process.cwd(), 'app')
 const pageDir = path.resolve(process.cwd(), 'app/page')
-const routers = fs.readdirSync(pageDir)
+const routers = fs.readdirSync(pageDir).filter(item => !item.includes('.') && item)
 const childProcess = require('child_process')
 let cmd
 switch (process.platform) {

@@ -11,6 +11,7 @@ const Main = () => {
         <>
             <div className={style.scrollView}>
                 {/* something */}
+                <div className={style.testImg}></div>
                 <div className={style.test1} onClick={() => { setMask(0) }}>123345</div>
             </div>
             <Mask>

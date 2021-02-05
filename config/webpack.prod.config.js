@@ -11,7 +11,7 @@ const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const appDir = path.resolve(process.cwd(), 'app')
 const pageDir = path.resolve(process.cwd(), 'app/page')
 const fs = require('fs')
-const routers = fs.readdirSync(pageDir)
+const routers = fs.readdirSync(pageDir).filter(item => !item.includes('.') && item)
 const outputPath = path.resolve(process.cwd(), 'build')
 const assestPathName = 'assets'
 const config = merge(commonConfig, {

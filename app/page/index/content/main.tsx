@@ -14,14 +14,14 @@ const Main = () => {
                 <div className={style.coupon}>
                     <span>123</span>
                 </div>
-                <div contentEditable={true} onInput={(e: any) => { console.log(e.target.innerHTML) }}>
+                <div onInput={(e: any) => { console.log(e.target.innerHTML) }}>
                     213
                 </div>
                 <div className={style.testImg}></div>
                 <div className={style.test1} onClick={() => { setMask(0) }}>123345</div>
                 <div className={style.content}>
                     <div className={style.boxs}></div>
-                    <div className={style.boxm}></div>
+                    <div className={`${style.boxm} border`}></div>
                     <div className={style.boxl}></div>
                     <div className={style.boxs}></div>
                 </div>

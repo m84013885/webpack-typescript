@@ -132,3 +132,6 @@ const clone = (parent: any) => {
     return _clone(parent)
 }
 
+export const isTypeof = (param: any) => {
+    return Object.prototype.toString.call(param).slice(8, -1).toLowerCase()
+}

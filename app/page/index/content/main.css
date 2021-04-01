@@ -4,6 +4,7 @@
   -webkit-overflow-scrolling: touch;
   width: 100%;
   height: 100%;
+  background-color: #dddddd;
 }
 .box{
   width: 375px;
@@ -84,4 +85,11 @@
   height: 200px;
   width: 200px;
   background-color: #666;
+}
+.qqq{
+  background-color: #333;
+  width:100px;
+  height: 100px;
+  background-size: 100% 100%;
+  background-image: url(../assets/ttt.png);
 }

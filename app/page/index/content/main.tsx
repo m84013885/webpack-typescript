@@ -6,15 +6,24 @@ import { Mask } from '../../../components'
 
 const Main = () => {
     const store = useContext(storeContext)
+    const [arr, setArr] = useState(1)
+    const [arr1, setArr1] = useState(1)
     const { setMask } = store
+    const test = useCallback(() => {
+        setArr(arr1+1)
+    }, [arr1])
+    useEffect(() => {
+        test()
+    }, [test])
     return (
         <>
+            <div className={style.qqq}></div>
             <div className={style.scrollView}>
                 {/* something */}
                 <div className={style.coupon}>
-                    <span>123</span>
+                    <span>{arr}</span>
                 </div>
-                <div onInput={(e: any) => { console.log(e.target.innerHTML) }}>
+                <div onInput={(e: any) => { console.log(e.target.innerHTML) }} onClick={() => { setArr1(1) }}>
                     213
                 </div>
                 <div className={style.testImg}></div>

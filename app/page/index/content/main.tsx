@@ -8,6 +8,7 @@ const Main = () => {
     const store = useContext(storeContext)
     const [arr, setArr] = useState(1)
     const [arr1, setArr1] = useState(1)
+    // console.log(useState(5)[0])
     const { setMask } = store
     const test = useCallback(() => {
         setArr(arr1+1)

@@ -9,22 +9,22 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
       ReactDOM: 'react-dom',
-      useEffect: ['react','useEffect'],
-      useState: ['react','useState'],
-      useCallback: ['react','useCallback'],
-      useMemo: ['react','useMemo'],
-      useReducer: ['react','useReducer'],
-      useRef: ['react','useRef'],
-      useContext: ['react','useContext'],
-    }),
+      useEffect: ['react', 'useEffect'],
+      useState: ['react', 'useState'],
+      useCallback: ['react', 'useCallback'],
+      useMemo: ['react', 'useMemo'],
+      useReducer: ['react', 'useReducer'],
+      useRef: ['react', 'useRef'],
+      useContext: ['react', 'useContext'],
+    })
   ],
   resolve: {
-    extensions: [".ts", ".tsx", '.js']
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [{
       test: /\.ts(x?)$/,
-      use: ['ts-loader'],
+      use: ['ts-loader', 'eslint-loader'],
       include: [appDir],
       exclude: [nodeModuleDir]
     }]

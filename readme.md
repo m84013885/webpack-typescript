@@ -1,3 +1,8 @@
+### 2021-4-6
+##### 新增eslint
+##### 采用的是eslint-webpack-plugin插件
+##### 新增.eslintrc的配置
+
 ### 2021-3-1
 ##### 新增公共常用的css
 

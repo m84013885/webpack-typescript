@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack')
 const commonConfig = require('./webpack.common.config')
 const { merge } = require('webpack-merge')
 const path = require('path')
 const process = require('process')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const ip = require('ip')
 const fs = require('fs')
+const childProcess = require('child_process')
+const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const port = 8087
 const host = ip.address()
 const appDir = path.resolve(process.cwd(), 'app')
 const pageDir = path.resolve(process.cwd(), 'app/page')
 const routers = fs.readdirSync(pageDir).filter(item => !item.includes('.') && item)
-const childProcess = require('child_process')
 let cmd
 switch (process.platform) {
   case 'wind32':

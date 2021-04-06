@@ -1,5 +1,5 @@
 import style from "./main.css"
-import fetch from '../../../utils/fetch'
+// import fetch from '../../../utils/fetch'
 import { storeContext } from '../../../utils/stroe'
 
 import { Mask } from '../../../components'
@@ -25,7 +25,7 @@ const Main = () => {
                     <span>{arr}</span>
                 </div>
                 <div onInput={(e: any) => { console.log(e.target.innerHTML) }} onClick={() => { setArr1(1) }}>
-                    213
+                    2131
                 </div>
                 <div className={style.testImg}></div>
                 <div className={style.test1} onClick={() => { setMask(0) }}>123345</div>

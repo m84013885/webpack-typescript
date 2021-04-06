@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const process = require('process')
 const webpack = require('webpack')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const appDir = path.resolve(process.cwd(), 'app')
 module.exports = {
@@ -16,6 +18,12 @@ module.exports = {
       useReducer: ['react', 'useReducer'],
       useRef: ['react', 'useRef'],
       useContext: ['react', 'useContext'],
+    }),
+    new ESLintPlugin({
+      extensions: ['.ts', '.tsx', '.js'],
+      failOnError: true,
+      emitWarning: true,
+      emitError: true,
     })
   ],
   resolve: {
@@ -24,7 +32,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.ts(x?)$/,
-      use: ['ts-loader', 'eslint-loader'],
+      use: ['ts-loader'],
       include: [appDir],
       exclude: [nodeModuleDir]
     }]

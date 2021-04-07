@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const autoprefixer = require('autoprefixer')
 const pxToView = require('postcss-px-to-viewport')
 const adaptive = require('postcss-pxtorem')

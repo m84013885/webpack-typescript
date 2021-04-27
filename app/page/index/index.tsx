@@ -4,7 +4,6 @@
 import './index.common.css'
 import '../../utils/myBabel'
 import '../../utils/resize'
-
 import Main from "./content/main"
 import { StoreProvider } from '../../utils/stroe'
 

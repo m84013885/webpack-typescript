@@ -4,21 +4,6 @@ import { storeContext } from '../../../utils/stroe'
 
 import { Mask } from '../../../components'
 
-interface PropsType {
-    children: JSX.Element
-    name: string
-}
-
-class Component extends React.Component<PropsType, {}> {
-    render() {
-        return (
-            <h2>
-                {this.props.children}
-            </h2>
-        )
-    }
-}
-
 const Main = () => {
     const store = useContext(storeContext)
     const [arr, setArr] = useState(1)
@@ -33,9 +18,6 @@ const Main = () => {
     }, [test])
     return (
         <>
-            <Component name="123">
-                <div>12</div>
-            </Component>
             <div className={style.qqq}></div>
             <div className={style.scrollView}>
                 {/* something */}

@@ -89,3 +89,7 @@ html,body,#main{
   transform: scale(0.5);
   border: 1px solid #ddd;
 }
+/* 一行代码暗模式 */
+html { 
+  /* filter: invert(1) contrast(0.95) saturate(0.5) hue-rotate(180deg); */
+}

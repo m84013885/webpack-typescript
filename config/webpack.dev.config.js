@@ -42,7 +42,7 @@ const config = merge(commonConfig, {
         changeOrigin: true
       }
     },
-    after: function (app, server, compiler) {
+    onAfterSetupMiddleware: function (app, server, compiler) {
       childProcess.exec(`${cmd} http://${host}:${port}/${routers[0]}`)
     }
   },
@@ -90,7 +90,7 @@ const config = merge(commonConfig, {
 routers.map((item) => {
   const tempSrc = path.join(pageDir, `./${item}/index.html`)
   const plugin = new HtmlWebpackPlugin({
-    filename: `${item}`,
+    filename: `${item}.html`,
     template: tempSrc,
     inject: true,
     chunks: [item]

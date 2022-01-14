@@ -11,7 +11,7 @@ const Main = () => {
         <>
             <div className={style.scrollView}>
                 {/* something */}
-                123
+                <div onClick={() => { setMask(0) }}>123</div>
             </div>
             <Mask>
                 <div className={style.box}><div onClick={() => { setMask(null) }}>1</div></div>

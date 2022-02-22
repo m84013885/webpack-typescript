@@ -1,5 +1,5 @@
-// import * as VConsole from 'vconsole'
-// new VConsole()
+import * as VConsole from 'vconsole'
+new VConsole()
 
 import './index.common.css'
 import '../../utils/myBabel'

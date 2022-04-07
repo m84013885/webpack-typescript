@@ -27,10 +27,11 @@ const config = merge(commonConfig, {
     runtimeChunk: { name: () => { return 'manifest' } },
     splitChunks: {
       chunks: 'all',  // 加载内容
-      minSize: {
-        javascript: 100000, // 模块要大于30kb才会进行提取
-        style: 50000, // 模块要大于50kb才会进行提取
-      },
+      // minSize: {
+      //   javascript: 50000, // 模块要大于50kb才会进行提取
+      //   style: 50000, // 模块要大于50kb才会进行提取
+      // },
+      minSize: 20000, // 模块要大于20kb才会进行提取,
       minChunks: 1,  // 被提取的模块必须被引用1次
       maxAsyncRequests: 6, // 异步加载代码时同时进行的最大请求数不得超过6个
       maxInitialRequests: 4, // 入口文件加载时最大同时请求数不得超过4个
@@ -39,7 +40,7 @@ const config = merge(commonConfig, {
           name: 'vendors',
           test: /[\\/]node_modules[\\/]/,
           priority: -10
-        }
+        },
       }
     }
   },
@@ -47,7 +48,7 @@ const config = merge(commonConfig, {
     new webpack.DefinePlugin({ __DEV__: 'false' }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({ filename: assestPathName + `/[name].[chunkhash:5].css` }),
-    new OptimizeCSSAssetsPlugin({})
+    new OptimizeCSSAssetsPlugin({}),
   ],
   module: {
     rules: [

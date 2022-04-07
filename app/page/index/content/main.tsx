@@ -1,8 +1,8 @@
 import style from "./main.css"
 // import fetch from '../../../utils/fetch'
 import { storeContext } from '../../../utils/stroe'
+import Mask from '../../../components/mask/index'
 
-import { Mask } from '../../../components'
 
 const Main = () => {
     const store = useContext(storeContext)

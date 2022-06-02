@@ -16,87 +16,87 @@ const pageDir = path.resolve(process.cwd(), 'app/page')
 const routers = fs.readdirSync(pageDir).filter(item => !item.includes('.') && item)
 let cmd
 switch (process.platform) {
-  case 'wind32':
-    cmd = 'start'
-    break
-  case 'linux':
-    cmd = 'xdg-open'
-    break
-  case 'darwin':
-    cmd = 'open'
-    break
+    case 'wind32':
+        cmd = 'start'
+        break
+    case 'linux':
+        cmd = 'xdg-open'
+        break
+    case 'darwin':
+        cmd = 'open'
+        break
 }
 const config = merge(commonConfig, {
-  mode: 'development',
-  target: 'web',
-  devServer: {
-    compress: true,
-    hot: true,
-    port,
-    host,
-    historyApiFallback: true,
-    proxy: {
-      '/v1': {
-        target: 'http://livetest1.yuanbobo.com',
-        pathRewrite: { '^/v1': '' },
-        changeOrigin: true
-      }
-    },
-    onAfterSetupMiddleware: function (app, server, compiler) {
-      childProcess.exec(`${cmd} http://${host}:${port}/${routers[0]}`)
-    }
-  },
-  plugins: [
-    new webpack.DefinePlugin({ __DEV__: 'true' }),
-  ],
-  devtool: 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: new RegExp(`^(?!.*\\.common).*\\.css`),
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                mode: 'local',
-                localIdentName: '[local]--[hash:base64:5]'
-              }
+    mode: 'development',
+    target: 'web',
+    devServer: {
+        compress: true,
+        hot: true,
+        port,
+        host,
+        historyApiFallback: true,
+        proxy: {
+            '/v1': {
+                target: 'http://livetest1.yuanbobo.com',
+                pathRewrite: { '^/v1': '' },
+                changeOrigin: true
             }
-          },
-          'postcss-loader'],
-        include: [appDir],
-        exclude: [nodeModuleDir]
-      },
-      {
-        test: new RegExp(`^(.*\\.common).*\\.css`),
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
-        include: [appDir],
-        exclude: [nodeModuleDir]
-      },
-      {
-        test: /\.(png|svg|svga|jpg|gif|mp4)$/,
-        use: [{
-          loader: 'url-loader', // file-loader
-          options: { limit: 2500 }
-        }],
-        include: [appDir],
-        exclude: [nodeModuleDir]
-      }
-    ]
-  }
+        },
+        onAfterSetupMiddleware: function(app, server, compiler) {
+            childProcess.exec(`${cmd} http://${host}:${port}/${routers[0]}`)
+        }
+    },
+    plugins: [
+        new webpack.DefinePlugin({ __DEV__: 'true' }),
+    ],
+    devtool: 'inline-source-map',
+    module: {
+        rules: [{
+                test: new RegExp(`^(?!.*\\.common).*\\.css`),
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'local',
+                                localIdentName: '[local]--[hash:base64:5]'
+                            }
+                        }
+                    },
+                    'postcss-loader'
+                ],
+                include: [appDir],
+                exclude: [nodeModuleDir]
+            },
+            {
+                test: new RegExp(`^(.*\\.common).*\\.css`),
+                use: ['style-loader', 'css-loader', 'postcss-loader'],
+                include: [appDir],
+                exclude: [nodeModuleDir]
+            },
+            {
+                test: /\.(png|svg|svga|jpg|gif|mp4)$/,
+                // use: [{
+                //     loader: 'url-loader', // file-loader
+                //     options: { name: '[name].[hash:4].[ext]', limit: 2500 }
+                // }],
+                // include: [appDir],
+                // exclude: [nodeModuleDir]
+            }
+        ]
+    }
 })
 routers.map((item) => {
-  const tempSrc = path.join(pageDir, `./${item}/index.html`)
-  const plugin = new HtmlWebpackPlugin({
-    filename: `${item}.html`,
-    template: tempSrc,
-    inject: true,
-    chunks: [item]
-  })
-  config.entry[item] = [path.resolve(pageDir, `./${item}/index.tsx`)]
-  config.plugins.push(plugin)
+    const tempSrc = path.join(pageDir, `./${item}/index.html`)
+    const plugin = new HtmlWebpackPlugin({
+        filename: `${item}.html`,
+        template: tempSrc,
+        inject: true,
+        chunks: [item]
+    })
+    config.entry[item] = [path.resolve(pageDir, `./${item}/index.tsx`)]
+    config.plugins.push(plugin)
 })
 
 module.exports = config

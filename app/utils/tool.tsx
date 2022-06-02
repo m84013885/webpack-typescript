@@ -24,10 +24,10 @@ export const renderTime = (timeStart: number, timeEnd: number) => {
         }
     }
     const time = (Math.abs(timeEnd - timeStart)) / 1000
-    let day = time > 60 * 60 * 24 ? parseInt(time / (60 * 60 * 24) + '') : 0
-    let hour = time > 60 * 60 ? parseInt(time / (60 * 60) + '') - (day * 24) : 0
-    let minute = time > 60 ? parseInt(time / 60 + '') - (day * 24 * 60) - (hour * 60) : 0
-    let second = parseInt(time + '') - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60)
+    const day = time > 60 * 60 * 24 ? parseInt(time / (60 * 60 * 24) + '') : 0
+    const hour = time > 60 * 60 ? parseInt(time / (60 * 60) + '') - (day * 24) : 0
+    const minute = time > 60 ? parseInt(time / 60 + '') - (day * 24 * 60) - (hour * 60) : 0
+    const second = parseInt(time + '') - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60)
 
     return { year, day, hour, minute, second }
 }
@@ -132,6 +132,150 @@ const clone = (parent: any) => {
     return _clone(parent)
 }
 
+export function deepCopy1(obj: any): any {
+    if (!obj && typeof obj !== 'object') {
+        throw new Error('error arguments');
+    }
+    // const targetObj = obj.constructor === Array ? [] : {};
+    const targetObj: any = Array.isArray(obj) ? [] : {};
+    for (const key in obj) {
+        //只对对象自有属性进行拷贝
+        if (obj.hasOwnProperty(key)) {
+            if (obj[key] && typeof obj[key] === 'object') {
+                targetObj[key] = deepCopy1(obj[key]);
+            } else {
+                targetObj[key] = obj[key];
+            }
+        }
+    }
+    return targetObj;
+}
+
 export const isTypeof = (param: any) => {
     return Object.prototype.toString.call(param).slice(8, -1).toLowerCase()
+}
+
+// 使用构造函数处理
+export function cloneEz(data: any): any {
+    if (typeof data === 'symbol') {           //Symbol
+        return Symbol.for(data.description);
+    } else if (typeof data != 'object' || (!data && typeof (data) != "undefined" && data != 0)) {      //基本类型
+        return data;
+    } else if (data instanceof Array) {      //Array
+        return data.map(item => cloneEz(item));
+    } else if (data.constructor === Object) {   //Json
+        const res: any = {};
+        for (const key in data) {
+            res[key] = cloneEz(data[key]);
+        }
+        return res;
+    } else {                                //系统对象、自定义对象
+        return new data.constructor(data);
+    }
+}
+
+// 不使用构造函数处理
+export function cloneDeep(value: any) {
+    let res: any
+    const type = isTypeof(value)
+    // 基础类型直接复制
+    switch (type) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+        case 'null':
+        case 'undefined':
+            res = value
+            break;
+        case 'symbol':
+            res = Symbol.for(value.description)
+            break;
+        case 'regexp':
+            res = new RegExp(value.source)
+            if (value.lastIndex) res.lastIndex = value.lastIndex
+            break;
+        case 'date':
+            res = new Date(value.getTime())
+            break;
+        // 数组类型和对象都先浅拷贝一下
+        // 检测我们浅拷贝的这个对象的属性值有没有是引用数据类型。如果是，则递归拷贝
+        case 'array':
+            res = []
+            for (const key of value) {
+                res[key] = cloneDeep(value[key])
+            }
+            break;
+        case 'object':
+            res = {}
+            for (const key of Object.keys(value)) {
+                res[key] = cloneDeep(value[key])
+            }
+            break;
+        case 'set':
+            res = new Set()
+            const put: any = []
+            res.forEach((value: any) => {
+                put.push(value)
+            })
+            res.clear()
+            put.forEach((value: any) => {
+                res.add(cloneDeep(value))
+            })
+            break;
+        case 'map':
+            res = new Map()
+            res.forEach((value: any, index: any) => {
+                res.set(index, cloneDeep(value));
+            })
+            break;
+        default:
+            // 处理对象原型
+            const proto = Object.getPrototypeOf(value)
+            res = Object.create(proto)
+    }
+    return res
+}
+
+export function cloneC(data: any): any {
+    if (typeof data === 'symbol') {
+        return Symbol.for(data.description)
+    } else if (typeof data !== 'object' || (!data && typeof data !== 'undefined' && data !== 0)) {
+        return data
+    } else if (data instanceof Array) {
+        return data.map(item => cloneC(item))
+    } else if (data.constructor === Object) {
+        const res: any = {}
+        for (const key in data) {
+            res[key] = cloneC(data[key])
+        }
+        return res
+    } else {
+        return new data.constructor(data)
+    }
+}
+
+let throttledTimeout: any = null
+export function throttled(func: any, delay = 500) {
+    return (...args: any) => {
+        if (!throttledTimeout) {
+            func.apply(this, args)
+            throttledTimeout = setTimeout(() => {
+                clearTimeout(throttledTimeout)
+                throttledTimeout = null
+            }, delay)
+        }
+    }
+}
+
+let debounceTimeout: any = null
+export function debounce(func: any, wait = 500, immediate = false): any {
+    return (...args: any) => {
+        const init = immediate && !debounceTimeout
+        clearTimeout(debounceTimeout)
+        debounceTimeout = setTimeout(() => {
+            debounceTimeout = null
+            !immediate ? func.apply(this, args) : null
+        }, wait)
+        init ? func.apply(this, args) : null
+    }
 }

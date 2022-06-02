@@ -49,6 +49,8 @@ module.exports = {
     'react-hooks/rules-of-hooks': 2,
     'react-hooks/exhaustive-deps': 0,
     'react/prop-types': 0,
-    '@typescript-eslint/no-empty-function': 1
+    'prefer-rest-params': 0,
+    '@typescript-eslint/no-empty-function': 1,
+    '@typescript-eslint/no-this-alias': 0
   },
 }
